@@ -29,29 +29,29 @@ const steps = [
 
 function HowItWorks() {
   return (
-    <section className="how-it-works">
+    <section className="how-it-works-section">
       <div className="container">
-        <h2 className="how-it-works-title text-center">
+        <h2 className="hiw-title text-center">
           Cómo armar tu <span>RICOCKY</span>
         </h2>
-        <p className="how-it-works-subtitle text-center">
+        <p className="hiw-subtitle text-center">
           Seguí estos pasos y armá el perro perfecto
         </p>
 
-        <div className="how-it-works-grid">
+        <div className="hiw-grid">
           {steps.map((step) => (
-            <div key={step.number} className="how-it-works-card">
-              <div className="how-it-works-card-top">
-                <span className="how-it-works-emoji">{step.emoji}</span>
-                <span className="how-it-works-number">{step.number}</span>
+            <div key={step.number} className="hiw-card">
+              <div className="hiw-card-header">
+                <span className="hiw-emoji">{step.emoji}</span>
+                <span className="hiw-num">{step.number}</span>
               </div>
-              <h3 className="how-it-works-card-title">{step.title}</h3>
-              <p className="how-it-works-card-desc">{step.description}</p>
+              <h3 className="hiw-card-title">{step.title}</h3>
+              <p className="hiw-card-desc">{step.description}</p>
             </div>
           ))}
         </div>
 
-        <p className="how-it-works-cta text-center">
+        <p className="hiw-cta text-center">
           Uno nunca es suficiente
         </p>
       </div>
