@@ -1,0 +1,99 @@
+.arma-products-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.25rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.arma-product-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 2rem 1.5rem;
+  cursor: pointer;
+  border: 2px solid #e8e8e8;
+  text-align: center;
+  background: var(--color-white);
+  border-radius: var(--radius-lg);
+  transition: all var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+
+.arma-product-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--color-primary), var(--color-accent));
+  opacity: 0;
+  transition: opacity var(--transition);
+}
+
+.arma-product-card:hover {
+  border-color: var(--color-primary);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-3px);
+}
+
+.arma-product-card:hover::before {
+  opacity: 1;
+}
+
+.arma-product-emoji {
+  font-size: 2.5rem;
+  line-height: 1;
+  margin-bottom: 0.25rem;
+}
+
+.arma-product-name {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--color-dark);
+}
+
+.arma-product-price {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--color-primary);
+  letter-spacing: -0.5px;
+}
+
+.arma-product-badge {
+  display: inline-block;
+  padding: 0.2rem 0.65rem;
+  border-radius: 50px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  background: var(--color-light);
+  color: var(--color-success);
+}
+
+@media (max-width: 767px) {
+  .arma-products-grid {
+    grid-template-columns: 1fr;
+    max-width: none;
+  }
+
+  .arma-product-card {
+    flex-direction: row;
+    padding: 1.25rem 1.5rem;
+    gap: 1rem;
+  }
+
+  .arma-product-emoji {
+    font-size: 2rem;
+    margin-bottom: 0;
+  }
+
+  .arma-product-card > :first-child {
+    text-align: left;
+    flex: 1;
+  }
+}
