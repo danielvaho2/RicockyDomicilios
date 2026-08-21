@@ -8,13 +8,13 @@ const steps = [
   },
   {
     number: '2',
-    title: 'Escogé tus salsas',
-    description: 'La salsa perfecta para tu perro',
+    title: 'Escogé tus toppings',
+    description: 'Sin límite, sin costo extra',
   },
   {
     number: '3',
-    title: 'Escogé tus toppings',
-    description: 'Sin límite, sin costo extra',
+    title: 'Escogé tus salsas',
+    description: 'La salsa perfecta para tu perro',
   },
   {
     number: '4',

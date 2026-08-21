@@ -56,7 +56,7 @@ export const toppings: Topping[] = [
   { id: 'pepino-dulce', name: 'Pepino dulce' },
   { id: 'ensalada-de-repollo', name: 'Ensalada de repollo' },
   { id: 'doritos', name: 'Doritos' },
-  { id: 'pina-calada-e-tronco', name: 'Piña calada e tronco' },
+  { id: 'pina-calada-tronco', name: 'Piña calada' },
   { id: 'maiz-dulce', name: 'Maíz dulce' },
   { id: 'topping-de-temporada', name: 'Topping de temporada' },
 ]

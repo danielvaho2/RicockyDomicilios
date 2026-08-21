@@ -144,10 +144,43 @@ function ItemBuilder({
       <div className="item-builder-body">
         <p className="item-builder-hint">Personaliza tu perro paso a paso</p>
 
+         <StepSection
+          id="toppings"
+          title="Toppings"
+          badge="Paso 2"
+          count={selectedToppingsCount}
+          isOpen={openSection === 'toppings'}
+          onToggle={() => toggleSection('toppings')}
+        >
+          <label className="item-builder-select-all">
+            <input
+              ref={(el) => {
+                if (el) el.indeterminate = someToppingsSelected
+              }}
+              type="checkbox"
+              checked={allToppingsSelected}
+              onChange={toggleAllToppings}
+            />
+            Seleccionar todos
+          </label>
+          <div className="item-builder-toppings">
+            {toppings.map((topping) => (
+              <button
+                key={topping.id}
+                className={`arma-topping-chip ${isSelected(topping.id) ? 'arma-topping-selected' : ''}`}
+                onClick={() => toggleTopping(topping)}
+              >
+                {isSelected(topping.id) && <span className="arma-topping-check"></span>}
+                {topping.name}
+              </button>
+            ))}
+          </div>
+        </StepSection>
+
         <StepSection
           id="salsas"
           title="Salsas"
-          badge="Paso 2"
+          badge="Paso 3"
           count={selectedSalsasCount}
           isOpen={openSection === 'salsas'}
           onToggle={() => toggleSection('salsas')}
@@ -182,38 +215,7 @@ function ItemBuilder({
           ))}
         </StepSection>
 
-        <StepSection
-          id="toppings"
-          title="Toppings"
-          badge="Paso 3"
-          count={selectedToppingsCount}
-          isOpen={openSection === 'toppings'}
-          onToggle={() => toggleSection('toppings')}
-        >
-          <label className="item-builder-select-all">
-            <input
-              ref={(el) => {
-                if (el) el.indeterminate = someToppingsSelected
-              }}
-              type="checkbox"
-              checked={allToppingsSelected}
-              onChange={toggleAllToppings}
-            />
-            Seleccionar todos
-          </label>
-          <div className="item-builder-toppings">
-            {toppings.map((topping) => (
-              <button
-                key={topping.id}
-                className={`arma-topping-chip ${isSelected(topping.id) ? 'arma-topping-selected' : ''}`}
-                onClick={() => toggleTopping(topping)}
-              >
-                {isSelected(topping.id) && <span className="arma-topping-check"></span>}
-                {topping.name}
-              </button>
-            ))}
-          </div>
-        </StepSection>
+       
 
         <StepSection
           id="extras"
