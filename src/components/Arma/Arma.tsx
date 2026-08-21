@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { products } from '../../data/menuData'
-import type { Product, Topping, OrderItem } from '../../data/menuData'
+import type { Extra, Product, Topping, OrderItem } from '../../data/menuData'
 import ProductSelector from './ProductSelector/ProductSelector'
 import ItemBuilder from './ItemBuilder/ItemBuilder'
 import OrderList from './OrderList/OrderList'
@@ -11,29 +11,40 @@ function Arma() {
   const [buildingItem, setBuildingItem] = useState<{
     product: Product
     toppings: Topping[]
+    extras: Extra[]
+    notes?: string
     editId?: string
   } | null>(null)
 
   const handleSelectProduct = (product: Product) => {
-    setBuildingItem({ product, toppings: [] })
+    setBuildingItem({ product, toppings: [], extras: [] })
   }
 
-  const handleConfirmItem = (toppings: Topping[]) => {
+  const generateId = () => {
+    if (typeof crypto !== 'undefined' && crypto.randomUUID) {
+      return crypto.randomUUID()
+    }
+    return Math.random().toString(36).substring(2) + Date.now().toString(36)
+  }
+
+  const handleConfirmItem = (toppings: Topping[], extras: Extra[], notes: string) => {
     if (!buildingItem) return
 
     if (buildingItem.editId) {
       setOrder((prev) =>
         prev.map((item) =>
           item.id === buildingItem.editId
-            ? { ...item, toppings }
+            ? { ...item, toppings, extras, notes: notes.trim() || undefined }
             : item
         )
       )
     } else {
       const newItem: OrderItem = {
-        id: crypto.randomUUID(),
+        id: generateId(),
         product: buildingItem.product,
         toppings,
+        extras,
+        notes: notes.trim() || undefined,
       }
       setOrder((prev) => [...prev, newItem])
     }
@@ -49,6 +60,8 @@ function Arma() {
     setBuildingItem({
       product: item.product,
       toppings: item.toppings,
+      extras: item.extras,
+      notes: item.notes,
       editId: item.id,
     })
   }
@@ -61,7 +74,7 @@ function Arma() {
     <section id="armar" className="section">
       <div className="container">
         <h2 className="arma-title text-center">
-          Arma <span>tu perro</span>
+          Arma <span>TU RICOCKY</span>
         </h2>
         <p className="text-center text-lg arma-subtitle-text">
           Elige tu tipo de perro y agrégale los toppings que quieras
@@ -70,22 +83,29 @@ function Arma() {
         <div className="arma-content">
           {buildingItem ? (
             <ItemBuilder
+              key={buildingItem.editId || 'new'}
               product={buildingItem.product}
               initialToppings={buildingItem.toppings}
+              initialExtras={buildingItem.extras}
+              initialNotes={buildingItem.notes}
               isEditing={!!buildingItem.editId}
               onConfirm={handleConfirmItem}
               onCancel={handleCancelBuild}
             />
           ) : (
             <>
-              <div className="arma-step">
-                <span className="arma-step-number">1</span>
-                <span className="arma-step-label">Elegí tu perro</span>
-              </div>
-              <ProductSelector
-                products={products}
-                onSelect={handleSelectProduct}
-              />
+              <section className="arma-step-card">
+                <header className="arma-step-card-header">
+                  <span className="arma-step-card-title">Elige tu perro</span>
+                  <span className="item-builder-step">Paso 1</span>
+                </header>
+                <div className="arma-step-card-body">
+                  <ProductSelector
+                    products={products}
+                    onSelect={handleSelectProduct}
+                  />
+                </div>
+              </section>
             </>
           )}
 

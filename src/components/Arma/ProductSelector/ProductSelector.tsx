@@ -14,7 +14,6 @@ const productEmoji: Record<string, string> = {
 function ProductSelector({ products, onSelect }: ProductSelectorProps) {
   return (
     <div className="arma-products">
-      <h3 className="arma-subtitle text-center">¿Qué perro quieres agregar?</h3>
       <div className="arma-products-grid">
         {products.map((product) => (
           <button

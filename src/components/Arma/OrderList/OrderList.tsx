@@ -9,7 +9,11 @@ interface OrderListProps {
 }
 
 function OrderList({ items, onEdit, onDelete }: OrderListProps) {
-  const total = items.reduce((sum, item) => sum + item.product.price, 0)
+  const total = items.reduce(
+    (sum, item) =>
+      sum + item.product.price + item.extras.reduce((s, extra) => s + extra.price, 0),
+    0,
+  )
 
   return (
     <div className="order-list">

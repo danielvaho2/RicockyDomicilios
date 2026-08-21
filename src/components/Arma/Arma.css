@@ -40,37 +40,41 @@
   margin: 0 auto;
 }
 
-/* Step indicator */
-.arma-step {
+/* Tarjeta de paso (consistente con ItemBuilder) */
+.arma-step-card {
+  border: 1px solid rgba(230, 57, 70, 0.15);
+  border-radius: var(--radius-lg);
+  background: var(--color-white);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+}
+
+.arma-step-card-header {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 0.75rem;
-  margin-bottom: 1.5rem;
+  padding: 0.85rem 1.1rem;
+  background: var(--color-bg);
+  border-bottom: 1px solid #e8e8e8;
 }
 
-.arma-step-number {
-  width: 2rem;
-  height: 2rem;
-  border-radius: var(--radius-full);
-  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
-  color: var(--color-white);
-  font-size: 0.85rem;
+.arma-step-card-title {
+  font-size: 0.95rem;
   font-weight: 700;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  box-shadow: 0 2px 8px rgba(230, 57, 70, 0.3);
+  color: var(--color-dark);
 }
 
-.arma-step-label {
-  font-size: 1rem;
-  font-weight: 600;
-  color: var(--color-dark);
+.arma-step-card-body {
+  padding: 1.25rem;
 }
 
 @media (max-width: 767px) {
   .arma-title {
     font-size: 1.8rem;
+  }
+
+  .arma-step-card-body {
+    padding: 1rem;
   }
 }

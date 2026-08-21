@@ -1,4 +1,6 @@
 import './Hero.css'
+import Carousel from '../Carousel/Carousel'
+import { carruselImages } from '../../data/carruselData'
 
 const heroContent = {
   title: ['Arma, ', 'combina', ' y disfruta'],
@@ -14,6 +16,7 @@ const heroButtons = [
 function Hero() {
   return (
     <section className="hero">
+      <Carousel images={carruselImages} />
       <div className="hero-overlay" />
       <div className="hero-content">
         <h1 className="hero-title">

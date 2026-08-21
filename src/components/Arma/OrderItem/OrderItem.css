@@ -59,6 +59,16 @@
   margin-bottom: 0.75rem;
 }
 
+.order-item-notes {
+  font-size: 0.82rem;
+  font-style: italic;
+  color: var(--color-gray);
+  background: var(--color-bg);
+  border-left: 3px solid var(--color-accent);
+  padding: 0.5rem 0.75rem;
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+}
+
 .order-item-actions {
   display: flex;
   justify-content: flex-end;

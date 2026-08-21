@@ -15,19 +15,28 @@ function Navbar() {
   return (
     <nav className="navbar">
       <div className="container flex-between">
-        <a href="/" className="navbar-logo">Ricockys</a>
+        <a href="/" className="navbar-logo">
+          <img
+            src="/Ricockys_logo.jpg"
+            alt="Logo Ricockys"
+            className="navbar-logo-img"
+          />
+          Ricockys
+        </a>
 
         <button
           className={`navbar-toggle ${menuOpen ? 'active' : ''}`}
           onClick={() => setMenuOpen(!menuOpen)}
           aria-label="Menu"
+          aria-expanded={menuOpen}
+          aria-controls="navbar-menu"
         >
-          <span></span>
-          <span></span>
-          <span></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
         </button>
 
-        <ul className={`navbar-menu ${menuOpen ? 'open' : ''}`}>
+        <ul id="navbar-menu" className={`navbar-menu ${menuOpen ? 'open' : ''}`}>
           {navLinks.map((link) => (
             <li key={link.href} className="navbar-link">
               <a href={link.href} onClick={closeMenu}>{link.label}</a>

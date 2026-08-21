@@ -3,9 +3,12 @@ import Hero from './components/Hero/Hero'
 import HowItWorks from './components/HowItWorks/HowItWorks'
 import Arma from './components/Arma/Arma'
 import Footer from './components/Footer/Footer'
+import { useArma } from './hooks/useArma'
 import './App.css'
 
 function App() {
+  const { showArma, openArma } = useArma()
+
   return (
     <>
       <Navbar />
@@ -13,8 +16,8 @@ function App() {
       <div className="stripe-divider" />
 
       <main className="main-content">
-        <HowItWorks />
-        <Arma />
+        <HowItWorks onArmaClick={openArma} />
+        {showArma && <Arma />}
       </main>
 
       <Footer />

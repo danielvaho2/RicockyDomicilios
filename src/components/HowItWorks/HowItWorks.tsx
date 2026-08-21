@@ -3,57 +3,75 @@ import './HowItWorks.css'
 const steps = [
   {
     number: '1',
-    emoji: '🌭',
     title: 'Escogé tu Ricocky',
-    description: 'Elegí entre nuestro perro sencillo o especial',
+    description: 'Sencillo o especial, el que más te guste',
   },
   {
     number: '2',
-    emoji: '🫗',
     title: 'Escogé tus salsas',
-    description: 'Agregale la salsa que más te guste',
+    description: 'La salsa perfecta para tu perro',
   },
   {
     number: '3',
-    emoji: '🧀',
     title: 'Escogé tus toppings',
-    description: 'Toppings ilimitados, sin costo adicional',
+    description: 'Sin límite, sin costo extra',
   },
   {
     number: '4',
-    emoji: '🔄',
-    title: 'Repetí',
+    title: 'Repite',
     description: 'Uno nunca es suficiente',
   },
 ]
 
-function HowItWorks() {
+interface HowItWorksProps {
+  onArmaClick: () => void
+}
+
+function HowItWorks({ onArmaClick }: HowItWorksProps) {
   return (
-    <section className="how-it-works-section">
+    <section className="hiw-section">
       <div className="container">
         <h2 className="hiw-title text-center">
           Cómo armar tu <span>RICOCKY</span>
         </h2>
         <p className="hiw-subtitle text-center">
-          Seguí estos pasos y armá el perro perfecto
+          Armalo a tu gusto. Nosotros ponemos el resto.
         </p>
 
-        <div className="hiw-grid">
-          {steps.map((step) => (
-            <div key={step.number} className="hiw-card">
-              <div className="hiw-card-header">
-                <span className="hiw-emoji">{step.emoji}</span>
-                <span className="hiw-num">{step.number}</span>
+        <div className="hiw-timeline">
+          <div className="hiw-line" />
+
+          {steps.map((step, index) => (
+            <div key={step.number} className={`hiw-item ${index % 2 === 0 ? 'hiw-item--left' : 'hiw-item--right'}`}>
+              <div className="hiw-dot">
+                <span className="hiw-dot-num">{step.number}</span>
               </div>
-              <h3 className="hiw-card-title">{step.title}</h3>
-              <p className="hiw-card-desc">{step.description}</p>
+              <div className="hiw-card">
+                <h3 className="hiw-card-title">{step.title}</h3>
+                <p className="hiw-card-desc">{step.description}</p>
+              </div>
             </div>
           ))}
         </div>
 
-        <p className="hiw-cta text-center">
-          Uno nunca es suficiente
-        </p>
+        <div className="hiw-finish">
+          <img
+            className="hiw-finish-img"
+            src="/image.png"
+            alt="Ricocky perfecto"
+            width={671}
+            height={899}
+            loading="lazy"
+          />
+          <p className="hiw-finish-text">RICOCKY PERFECTO</p>
+          <p className="hiw-finish-cta">"Uno nunca es suficiente"</p>
+        </div>
+
+        <div className="hiw-cta-wrapper text-center">
+          <button className="btn btn-primary btn-lg" onClick={onArmaClick}>
+            Arma el tuyo
+          </button>
+        </div>
       </div>
     </section>
   )

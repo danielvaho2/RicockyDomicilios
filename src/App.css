@@ -56,15 +56,6 @@
 }
 
 /* === LAYOUT === */
-.grid {
-  display: grid;
-  gap: 1.5rem;
-}
-
-.flex {
-  display: flex;
-}
-
 .flex-center {
   display: flex;
   align-items: center;
@@ -77,24 +68,9 @@
   justify-content: space-between;
 }
 
-.flex-col {
-  flex-direction: column;
-}
-
-.gap-sm { gap: 0.5rem; }
-.gap-md { gap: 1rem; }
-.gap-lg { gap: 1.5rem; }
-
 /* === TIPOGRAFÍA === */
 .text-center { text-align: center; }
-.text-sm { font-size: 0.875rem; }
-.text-base { font-size: 1rem; }
 .text-lg { font-size: 1.25rem; }
-.text-xl { font-size: 1.5rem; }
-.text-2xl { font-size: 2rem; }
-.text-3xl { font-size: 2.5rem; }
-.font-bold { font-weight: 700; }
-.font-medium { font-weight: 500; }
 
 /* === BOTONES === */
 .btn {
@@ -120,6 +96,7 @@
   background: linear-gradient(120deg, transparent 30%, rgba(255, 255, 255, 0.2) 50%, transparent 70%);
   transform: translateX(-100%);
   transition: transform 0.5s ease;
+  pointer-events: none;
 }
 
 .btn:hover::after {
@@ -255,7 +232,6 @@
 }
 
 /* === UTILIDADES === */
-.hidden { display: none; }
 .sr-only {
   position: absolute;
   width: 1px;
@@ -266,31 +242,6 @@
   border: 0;
 }
 
-.p-0 { padding: 0; }
-.p-1 { padding: 0.5rem; }
-.p-2 { padding: 1rem; }
-.p-3 { padding: 1.5rem; }
-.p-4 { padding: 2rem; }
-
-.mt-1 { margin-top: 0.5rem; }
-.mt-2 { margin-top: 1rem; }
-.mt-3 { margin-top: 1.5rem; }
-.mb-1 { margin-bottom: 0.5rem; }
-.mb-2 { margin-bottom: 1rem; }
-.mb-3 { margin-bottom: 1.5rem; }
-
-.w-full { width: 100%; }
-.h-full { height: 100%; }
-.min-h-screen { min-height: 100vh; }
-
-.overflow-hidden { overflow: hidden; }
-.relative { position: relative; }
-
-.rounded { border-radius: var(--radius-sm); }
-.rounded-md { border-radius: var(--radius-md); }
-.rounded-lg { border-radius: var(--radius-lg); }
-.rounded-full { border-radius: var(--radius-full); }
-
 /* === MAIN CONTENT === */
 .main-content {
   padding-top: 1rem;
@@ -298,6 +249,8 @@
 
 .section {
   padding-block: 3.5rem;
+  /* Compensa la navbar sticky (80px) al navegar con anclas/scrollIntoView */
+  scroll-margin-top: 80px;
 }
 
 .section h2 {
@@ -314,29 +267,15 @@
   background: var(--color-light);
 }
 
-/* === RESPONSIVE: Grid automático === */
-.grid-auto {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 1.5rem;
-}
-
-/* === BREAKPOINTS === */
+/* === RESPONSIVE === */
 @media (min-width: 768px) {
   :root {
     --container-padding: 2rem;
   }
-
-  .text-md-tablet { font-size: 1rem; }
-  .hide-tablet { display: none; }
 }
 
 @media (min-width: 1024px) {
   :root {
     --container-padding: 2.5rem;
   }
-}
-
-@media (max-width: 767px) {
-  .hide-mobile { display: none; }
 }

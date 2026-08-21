@@ -18,7 +18,23 @@ export interface OrderItem {
   id: string
   product: Product
   toppings: Topping[]
+  extras: Extra[]
+  notes?: string
 }
+
+export interface SalsaCategory {
+  id: string
+  name: string
+  salsas: Topping[]
+}
+
+export interface Extra {
+  id: string
+  name: string
+  price: number
+}
+
+
 
 export const products: Product[] = [
   {
@@ -40,7 +56,39 @@ export const toppings: Topping[] = [
   { id: 'pepino-dulce', name: 'Pepino dulce' },
   { id: 'ensalada-de-repollo', name: 'Ensalada de repollo' },
   { id: 'doritos', name: 'Doritos' },
-  { id: 'pina', name: 'Piña' },
+  { id: 'pina-calada-e-tronco', name: 'Piña calada e tronco' },
   { id: 'maiz-dulce', name: 'Maíz dulce' },
   { id: 'topping-de-temporada', name: 'Topping de temporada' },
+]
+
+export const salsaCategories: SalsaCategory[] = [
+  {
+    id: 'salsas-tradicionales',
+    name: 'Salsas tradicionales',
+    salsas: [
+      { id: 'bbq', name: 'BBQ' }, 
+      { id: 'roja', name: 'ROJA' }
+    ],
+  },
+  {
+    id: 'salsas-artesanales',
+    name: 'Salsas artesanales',
+    salsas: [
+      { id: 'salsa-rosada',name: 'Rosada' },
+      { id: 'ajo-cremoso',name: 'Ajo cremoso' },
+      { id: 'crema-pimenton',name: 'Crema de pimentón' },
+      { id: 'salsa-pina', name: 'Piña' },
+      { id: 'queso-cheddar',name: 'Queso cheddar' },      
+    ],
+  },
+]
+
+export const allSalsas: Topping[] = salsaCategories.flatMap(
+  (category) => category.salsas,
+)
+
+export const extras: Extra[] = [
+  { id: 'salchicha-extra', name: 'Salchicha extra', price: 3000 },
+  { id: 'mas-queso', name: 'Más queso', price: 2000 },
+  { id: 'mas-tocineta', name: 'Más tocineta', price: 2000 },
 ]
