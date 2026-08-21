@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import './Hero.css'
 import Carousel from '../Carousel/Carousel'
 import { carruselImages } from '../../data/carruselData'
@@ -8,9 +9,9 @@ const heroContent = {
 }
 
 const heroButtons = [
-  { label: 'Arma tu pedido', href: '#armar', variant: 'btn-primary' },
-  { label: 'Eventos', href: '#eventos', variant: 'btn-outline' },
-  { label: 'Nosotros', href: '#nosotros', variant: 'btn-outline' },
+  { label: 'Arma tu pedido', to: '/armar', variant: 'btn-primary' },
+  { label: 'Eventos', to: '/eventos', variant: 'btn-outline' },
+  { label: 'Nosotros', to: '/nosotros', variant: 'btn-outline' },
 ]
 
 function Hero() {
@@ -25,9 +26,9 @@ function Hero() {
         <p className="hero-subtitle">{heroContent.subtitle}</p>
         <div className="hero-buttons">
           {heroButtons.map((btn) => (
-            <a key={btn.label} href={btn.href} className={`btn ${btn.variant} btn-lg`}>
+            <Link key={btn.label} to={btn.to} className={`btn ${btn.variant} btn-lg`}>
               {btn.label}
-            </a>
+            </Link>
           ))}
         </div>
       </div>

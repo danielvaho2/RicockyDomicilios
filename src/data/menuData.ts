@@ -2,6 +2,7 @@ export interface Product {
   id: string
   name: string
   price: number
+  description?: string
 }
 
 export interface Topping {
@@ -38,14 +39,15 @@ export interface Extra {
 
 export const products: Product[] = [
   {
-    id: 'perro-sencillo',
-    name: 'Perro sencillo',
+    id: 'ricocky-sencillo',
+    name: 'Ricocky sencillo',
     price: 5000,
   },
   {
-    id: 'perro-especial',
-    name: 'Perro especial',
+    id: 'ricocky-especial',
+    name: 'Ricocky especial',
     price: 7000,
+    description: 'Queso + tocineta',
   },
 ]
 
@@ -86,6 +88,10 @@ export const salsaCategories: SalsaCategory[] = [
 export const allSalsas: Topping[] = salsaCategories.flatMap(
   (category) => category.salsas,
 )
+
+const salsaIdSet = new Set(allSalsas.map((salsa) => salsa.id))
+
+export const isSalsa = (id: string): boolean => salsaIdSet.has(id)
 
 export const extras: Extra[] = [
   { id: 'salchicha-extra', name: 'Salchicha extra', price: 3000 },

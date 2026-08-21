@@ -1,7 +1,7 @@
-import { useState } from 'react'
-import type { ReactNode } from 'react'
-import { allSalsas, extras, salsaCategories, toppings } from '../../../data/menuData'
+import { extras, salsaCategories, toppings } from '../../../data/menuData'
 import type { Extra, Product, Topping } from '../../../data/menuData'
+import { useItemBuilder } from '../../../hooks/useItemBuilder'
+import StepSection from './StepSection'
 import './ItemBuilder.css'
 
 interface ItemBuilderProps {
@@ -14,58 +14,6 @@ interface ItemBuilderProps {
   onCancel: () => void
 }
 
-interface StepSectionProps {
-  id: string
-  title: string
-  badge: string
-  count: number
-  isOpen: boolean
-  onToggle: () => void
-  children: ReactNode
-}
-
-function StepSection({ id, title, badge, count, isOpen, onToggle, children }: StepSectionProps) {
-  return (
-    <div className="item-builder-section">
-      <button
-        type="button"
-        className="item-builder-section-header"
-        onClick={onToggle}
-        aria-expanded={isOpen}
-        aria-controls={`item-builder-panel-${id}`}
-      >
-        <span className="item-builder-section-title">
-          {title}
-          {count > 0 && <span className="item-builder-section-count"> · {count}</span>}
-        </span>
-        <span className="item-builder-step">{badge}</span>
-        <svg
-          className={`item-builder-chevron ${isOpen ? 'item-builder-chevron-open' : ''}`}
-          width="16"
-          height="16"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2.5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          aria-hidden="true"
-        >
-          <path d="M6 9l6 6 6-6" />
-        </svg>
-      </button>
-      {isOpen && (
-        <div id={`item-builder-panel-${id}`} className="item-builder-section-body">
-          {children}
-        </div>
-      )}
-    </div>
-  )
-}
-
-const salsaIds = new Set(allSalsas.map((salsa) => salsa.id))
-const toppingIds = new Set(toppings.map((topping) => topping.id))
-
 function ItemBuilder({
   product,
   initialToppings = [],
@@ -75,70 +23,37 @@ function ItemBuilder({
   onConfirm,
   onCancel,
 }: ItemBuilderProps) {
-  const [selectedToppings, setSelectedToppings] = useState<Topping[]>(initialToppings)
-  const [selectedExtras, setSelectedExtras] = useState<Extra[]>(initialExtras)
-  const [notes, setNotes] = useState(initialNotes)
-  const [openSection, setOpenSection] = useState<string | null>('salsas')
-
-  const toggleTopping = (topping: Topping) => {
-    setSelectedToppings((prev) =>
-      prev.some((t) => t.id === topping.id)
-        ? prev.filter((t) => t.id !== topping.id)
-        : [...prev, topping]
-    )
-  }
-
-  const toggleExtra = (extra: Extra) => {
-    setSelectedExtras((prev) =>
-      prev.some((e) => e.id === extra.id)
-        ? prev.filter((e) => e.id !== extra.id)
-        : [...prev, extra]
-    )
-  }
-
-  const isSelected = (id: string) =>
-    selectedToppings.some((t) => t.id === id) || selectedExtras.some((e) => e.id === id)
-
-  const toggleSection = (id: string) => {
-    setOpenSection((prev) => (prev === id ? null : id))
-  }
-
-  const extrasTotal = selectedExtras.reduce((sum, extra) => sum + extra.price, 0)
-
-  const selectedSalsasCount = selectedToppings.filter((t) => salsaIds.has(t.id)).length
-  const selectedToppingsCount = selectedToppings.length - selectedSalsasCount
-
-  const allSalsasSelected = allSalsas.length > 0 && allSalsas.every((s) => isSelected(s.id))
-  const someSalsasSelected = selectedSalsasCount > 0 && !allSalsasSelected
-
-  const allToppingsSelected =
-    toppings.length > 0 && toppings.every((t) => isSelected(t.id))
-  const someToppingsSelected = selectedToppingsCount > 0 && !allToppingsSelected
-
-  const toggleAllSalsas = () => {
-    setSelectedToppings((prev) => {
-      const rest = prev.filter((t) => !salsaIds.has(t.id))
-      return allSalsasSelected ? rest : [...rest, ...allSalsas]
-    })
-  }
-
-  const toggleAllToppings = () => {
-    setSelectedToppings((prev) => {
-      const rest = prev.filter((t) => !toppingIds.has(t.id))
-      return allToppingsSelected ? rest : [...rest, ...toppings]
-    })
-  }
+  const {
+    selectedToppings,
+    selectedExtras,
+    notes,
+    setNotes,
+    openSection,
+    toggleSection,
+    toggleTopping,
+    toggleExtra,
+    isSelected,
+    extrasTotal,
+    selectedSalsasCount,
+    selectedToppingsCount,
+    allSalsasSelected,
+    someSalsasSelected,
+    allToppingsSelected,
+    someToppingsSelected,
+    toggleAllSalsas,
+    toggleAllToppings,
+  } = useItemBuilder({ initialToppings, initialExtras, initialNotes })
 
   return (
     <div className="item-builder">
       <div className="item-builder-banner">
-        <span className="item-builder-banner-emoji">🌭</span>
         <div className="item-builder-banner-info">
           <span className="item-builder-banner-name">{product.name}</span>
-          <span className="item-builder-banner-price">
-            ${product.price.toLocaleString('es-CO')}
-          </span>
+          {isEditing && <span className="item-builder-banner-tag">Editando</span>}
         </div>
+        <span className="item-builder-banner-price">
+          ${product.price.toLocaleString('es-CO')}
+        </span>
       </div>
 
       <div className="item-builder-body">
@@ -170,7 +85,6 @@ function ItemBuilder({
                 className={`arma-topping-chip ${isSelected(topping.id) ? 'arma-topping-selected' : ''}`}
                 onClick={() => toggleTopping(topping)}
               >
-                {isSelected(topping.id) && <span className="arma-topping-check"></span>}
                 {topping.name}
               </button>
             ))}
@@ -206,7 +120,6 @@ function ItemBuilder({
                     className={`arma-topping-chip ${isSelected(salsa.id) ? 'arma-topping-selected' : ''}`}
                     onClick={() => toggleTopping(salsa)}
                   >
-                    {isSelected(salsa.id) && <span className="arma-topping-check"></span>}
                     {salsa.name}
                   </button>
                 ))}
@@ -214,8 +127,6 @@ function ItemBuilder({
             </div>
           ))}
         </StepSection>
-
-       
 
         <StepSection
           id="extras"
@@ -232,7 +143,6 @@ function ItemBuilder({
                 className={`arma-topping-chip ${isSelected(extra.id) ? 'arma-topping-selected' : ''}`}
                 onClick={() => toggleExtra(extra)}
               >
-                {isSelected(extra.id) && <span className="arma-topping-check">✓</span>}
                 {extra.name}
                 <span className="arma-topping-price">
                   +${extra.price.toLocaleString('es-CO')}
@@ -243,14 +153,14 @@ function ItemBuilder({
 
           <div className="item-builder-notes">
             <label htmlFor="item-builder-notes-input" className="item-builder-notes-label">
-              ¿Algo más? (detalles)
+              Detalles para este ítem (opcional)
             </label>
             <textarea
               id="item-builder-notes-input"
               className="item-builder-notes-input"
               value={notes}
               onChange={(e) => setNotes(e.target.value)}
-              placeholder="Ej: Pon mas salsa de ajo, un poco de cada topping, etc."
+              placeholder="Ej: más salsa de ajo, un poco de cada topping, etc."
               rows={3}
               maxLength={250}
             />
@@ -263,7 +173,13 @@ function ItemBuilder({
           </button>
           <button
             className="btn btn-primary btn-sm"
-            onClick={() => onConfirm(selectedToppings, selectedExtras, notes)}
+            onClick={() =>
+              onConfirm(
+                selectedToppings,
+                selectedExtras,
+                notes
+              )
+            }
           >
             {isEditing ? 'Actualizar' : `Agregar a la orden · $${(product.price + extrasTotal).toLocaleString('es-CO')}`}
           </button>

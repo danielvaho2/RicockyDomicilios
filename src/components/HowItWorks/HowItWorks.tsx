@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import './HowItWorks.css'
 
 const steps = [
@@ -14,7 +15,7 @@ const steps = [
   {
     number: '3',
     title: 'Escogé tus salsas',
-    description: 'La salsa perfecta para tu perro',
+    description: 'La salsa perfecta para tu Ricocky',
   },
   {
     number: '4',
@@ -23,11 +24,7 @@ const steps = [
   },
 ]
 
-interface HowItWorksProps {
-  onArmaClick: () => void
-}
-
-function HowItWorks({ onArmaClick }: HowItWorksProps) {
+function HowItWorks() {
   return (
     <section className="hiw-section">
       <div className="container">
@@ -68,9 +65,9 @@ function HowItWorks({ onArmaClick }: HowItWorksProps) {
         </div>
 
         <div className="hiw-cta-wrapper text-center">
-          <button className="btn btn-primary btn-lg" onClick={onArmaClick}>
+          <Link to="/armar" className="btn btn-primary btn-lg">
             Arma el tuyo
-          </button>
+          </Link>
         </div>
       </div>
     </section>

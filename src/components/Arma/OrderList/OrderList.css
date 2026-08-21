@@ -4,23 +4,21 @@
 
 .order-list-header {
   display: flex;
-  align-items: center;
+  align-items: baseline;
+  justify-content: space-between;
   gap: 0.75rem;
-  margin-bottom: 1.25rem;
+  margin-bottom: 1rem;
 }
 
-.order-list-icon {
-  width: 2rem;
-  height: 2rem;
-  border-radius: var(--radius-full);
-  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--color-white);
+.order-list-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--color-dark);
+}
+
+.order-list-count {
   font-size: 0.85rem;
-  flex-shrink: 0;
-  box-shadow: 0 2px 8px rgba(230, 57, 70, 0.3);
+  color: var(--color-gray);
 }
 
 .order-list-items {
@@ -34,22 +32,24 @@
   justify-content: space-between;
   align-items: center;
   margin-top: 1rem;
-  padding: 1.25rem 1.5rem;
-  font-weight: 700;
-  font-size: 1.15rem;
-  background: linear-gradient(135deg, var(--color-dark) 0%, #2d2d4a 100%);
+  padding: 1.1rem 1.5rem;
+  font-weight: 600;
+  font-size: 1rem;
+  background: var(--color-dark);
   color: var(--color-white);
   border-radius: var(--radius-lg);
 }
 
-.order-list-total .arma-product-price {
-  color: var(--color-accent);
-  font-size: 1.3rem;
+.order-list-total-amount {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--color-white);
+  font-variant-numeric: tabular-nums;
 }
 
 @media (max-width: 767px) {
   .order-list-total {
     padding: 1rem 1.25rem;
-    font-size: 1.05rem;
+    font-size: 0.95rem;
   }
 }

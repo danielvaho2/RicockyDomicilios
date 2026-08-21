@@ -18,8 +18,10 @@ function OrderList({ items, onEdit, onDelete }: OrderListProps) {
   return (
     <div className="order-list">
       <div className="order-list-header">
-        <span className="order-list-icon">🛒</span>
-        <h3 className="arma-subtitle">Tu orden</h3>
+        <h3 className="order-list-title">Tu orden</h3>
+        <span className="order-list-count">
+          {items.length} {items.length === 1 ? 'ítem' : 'ítems'}
+        </span>
       </div>
       <div className="order-list-items">
         {items.map((item, index) => (
@@ -34,7 +36,7 @@ function OrderList({ items, onEdit, onDelete }: OrderListProps) {
       </div>
       <div className="order-list-total">
         <span>Total</span>
-        <span className="arma-product-price">
+        <span className="order-list-total-amount">
           ${total.toLocaleString('es-CO')}
         </span>
       </div>

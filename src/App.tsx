@@ -1,26 +1,22 @@
-import Navbar from './components/Navbar/Navbar'
-import Hero from './components/Hero/Hero'
-import HowItWorks from './components/HowItWorks/HowItWorks'
-import Arma from './components/Arma/Arma'
-import Footer from './components/Footer/Footer'
-import { useArma } from './hooks/useArma'
+import { Routes, Route, Navigate } from 'react-router-dom'
+import HomePage from './pages/HomePage'
+import ArmaPage from './pages/ArmaPage'
+import EventosPage from './pages/EventosPage'
+import NosotrosPage from './pages/NosotrosPage'
+import ScrollToTop from './components/ScrollToTop'
 import './App.css'
 
 function App() {
-  const { showArma, openArma } = useArma()
-
   return (
     <>
-      <Navbar />
-      <Hero />
-      <div className="stripe-divider" />
-
-      <main className="main-content">
-        <HowItWorks onArmaClick={openArma} />
-        {showArma && <Arma />}
-      </main>
-
-      <Footer />
+      <ScrollToTop />
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/armar" element={<ArmaPage />} />
+        <Route path="/eventos" element={<EventosPage />} />
+        <Route path="/nosotros" element={<NosotrosPage />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
     </>
   )
 }

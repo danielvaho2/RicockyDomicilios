@@ -6,10 +6,9 @@
 }
 
 .order-item-accent {
-  width: 5px;
+  width: 4px;
   flex-shrink: 0;
-  background: linear-gradient(180deg, var(--color-primary), var(--color-accent));
-  border-radius: var(--radius-lg) 0 0 var(--radius-lg);
+  background: var(--color-primary);
 }
 
 .order-item-body {
@@ -26,9 +25,9 @@
 
 .order-item-number {
   font-size: 0.75rem;
-  font-weight: 700;
+  font-weight: 600;
   color: var(--color-white);
-  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
+  background: var(--color-dark);
   border-radius: var(--radius-full);
   width: 1.6rem;
   height: 1.6rem;
@@ -36,27 +35,42 @@
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  box-shadow: 0 2px 6px rgba(230, 57, 70, 0.3);
+  font-variant-numeric: tabular-nums;
 }
 
 .order-item-name {
   font-size: 1rem;
-  font-weight: 700;
+  font-weight: 600;
   color: var(--color-dark);
   flex: 1;
 }
 
 .order-item-price {
   font-size: 1.05rem;
-  font-weight: 800;
+  font-weight: 700;
   color: var(--color-primary);
+  font-variant-numeric: tabular-nums;
 }
 
-.order-item-toppings {
+.order-item-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  margin-bottom: 0.6rem;
+}
+
+.order-item-group-label {
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--color-gray);
+}
+
+.order-item-tags {
   display: flex;
   flex-wrap: wrap;
   gap: 0.35rem;
-  margin-bottom: 0.75rem;
 }
 
 .order-item-notes {
@@ -64,7 +78,7 @@
   font-style: italic;
   color: var(--color-gray);
   background: var(--color-bg);
-  border-left: 3px solid var(--color-accent);
+  border-left: 3px solid #dcdcdc;
   padding: 0.5rem 0.75rem;
   border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
 }
@@ -77,26 +91,19 @@
   border-top: 1px solid #e8e8e8;
 }
 
-.order-item-edit {
-  border-color: var(--color-secondary);
-  color: var(--color-secondary);
-}
-
-.order-item-edit:hover {
-  background-color: var(--color-secondary);
-  color: var(--color-white);
-  box-shadow: 0 4px 12px rgba(69, 123, 157, 0.35);
-}
-
+.order-item-edit,
 .order-item-delete {
-  border-color: var(--color-danger);
-  color: var(--color-danger);
+  border-color: #dcdcdc;
+  color: var(--color-gray);
 }
 
+.order-item-edit:hover,
 .order-item-delete:hover {
-  background-color: var(--color-danger);
+  background-color: var(--color-dark);
+  border-color: var(--color-dark);
   color: var(--color-white);
-  box-shadow: 0 4px 12px rgba(230, 57, 70, 0.35);
+  box-shadow: none;
+  transform: none;
 }
 
 @media (max-width: 767px) {

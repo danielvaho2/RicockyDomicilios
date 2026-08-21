@@ -1,10 +1,12 @@
 import { useState } from 'react'
+import { Link, NavLink } from 'react-router-dom'
 import './Navbar.css'
 
 const navLinks = [
-  { label: '¡Armar!', href: '#armar' },
-  { label: 'Eventos', href: '#eventos' },
-  { label: 'Nosotros', href: '#nosotros' },
+  { label: 'Inicio', to: '/', end: true },
+  { label: '¡Armar!', to: '/armar' },
+  { label: 'Eventos', to: '/eventos' },
+  { label: 'Nosotros', to: '/nosotros' },
 ]
 
 function Navbar() {
@@ -15,14 +17,14 @@ function Navbar() {
   return (
     <nav className="navbar">
       <div className="container flex-between">
-        <a href="/" className="navbar-logo">
+        <Link to="/" className="navbar-logo">
           <img
             src="/Ricockys_logo.jpg"
             alt="Logo Ricockys"
             className="navbar-logo-img"
           />
           Ricockys
-        </a>
+        </Link>
 
         <button
           className={`navbar-toggle ${menuOpen ? 'active' : ''}`}
@@ -38,8 +40,15 @@ function Navbar() {
 
         <ul id="navbar-menu" className={`navbar-menu ${menuOpen ? 'open' : ''}`}>
           {navLinks.map((link) => (
-            <li key={link.href} className="navbar-link">
-              <a href={link.href} onClick={closeMenu}>{link.label}</a>
+            <li key={link.to} className="navbar-link">
+              <NavLink
+                to={link.to}
+                end={link.end}
+                className={({ isActive }) => (isActive ? 'active' : undefined)}
+                onClick={closeMenu}
+              >
+                {link.label}
+              </NavLink>
             </li>
           ))}
         </ul>

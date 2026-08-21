@@ -57,6 +57,11 @@
   color: var(--color-primary);
 }
 
+.navbar-menu a.active {
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
 /* Hamburger */
 .navbar-toggle {
   display: none;

@@ -1,4 +1,5 @@
-import type { OrderItem as OrderItemType } from '../../../data/menuData'
+import { isSalsa } from '../../../data/menuData'
+import type { OrderItem as OrderItemType, Topping } from '../../../data/menuData'
 import './OrderItem.css'
 
 interface OrderItemProps {
@@ -8,7 +9,30 @@ interface OrderItemProps {
   onDelete: (id: string) => void
 }
 
+interface ItemGroupProps {
+  label: string
+  items: Topping[]
+}
+
+function ItemGroup({ label, items }: ItemGroupProps) {
+  if (items.length === 0) return null
+
+  return (
+    <div className="order-item-group">
+      <span className="order-item-group-label">{label}</span>
+      <div className="order-item-tags">
+        {items.map((t) => (
+          <span key={t.id} className="arma-summary-tag">{t.name}</span>
+        ))}
+      </div>
+    </div>
+  )
+}
+
 function OrderItem({ item, index, onEdit, onDelete }: OrderItemProps) {
+  const salsas = item.toppings.filter((t) => isSalsa(t.id))
+  const toppings = item.toppings.filter((t) => !isSalsa(t.id))
+
   return (
     <div className="order-item card card-static">
       <div className="order-item-accent" />
@@ -21,26 +45,24 @@ function OrderItem({ item, index, onEdit, onDelete }: OrderItemProps) {
           </span>
         </div>
 
-        {item.toppings.length > 0 && (
-          <div className="order-item-toppings">
-            {item.toppings.map((t) => (
-              <span key={t.id} className="arma-summary-tag">{t.name}</span>
-            ))}
-          </div>
-        )}
+        <ItemGroup label="Toppings" items={toppings} />
+        <ItemGroup label="Salsas" items={salsas} />
 
         {item.extras.length > 0 && (
-          <div className="order-item-toppings">
-            {item.extras.map((extra) => (
-              <span key={extra.id} className="arma-summary-tag arma-summary-tag-extra">
-                {extra.name} +${extra.price.toLocaleString('es-CO')}
-              </span>
-            ))}
+          <div className="order-item-group">
+            <span className="order-item-group-label">Extras</span>
+            <div className="order-item-tags">
+              {item.extras.map((extra) => (
+                <span key={extra.id} className="arma-summary-tag arma-summary-tag-extra">
+                  {extra.name} +${extra.price.toLocaleString('es-CO')}
+                </span>
+              ))}
+            </div>
           </div>
         )}
 
         {item.notes && (
-          <p className="order-item-notes">📝 {item.notes}</p>
+          <p className="order-item-notes">{item.notes}</p>
         )}
 
         <div className="order-item-actions">
